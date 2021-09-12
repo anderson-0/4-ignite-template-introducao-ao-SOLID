@@ -1,0 +1,219 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Swagger Documentation",
+    "description": "Solution to API SOLID Challenge Swagger",
+    "version": "1.0.0",
+    "contact": {
+      "email": "anderson.consultant.it@outlook.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "sumary": "Create a new User",
+        "description": "Create a new User",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "New User Name",
+                  "email": "new@mail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "User already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Users"],
+        "sumary": "List all users",
+        "description": "List all users",
+        "parameters": [          
+          {
+            "name": "user_id",
+            "in": "header",
+            "description": "ID of the admin user",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }          
+        ],        
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean"
+                      }
+                    }
+                  },
+                  "example": [
+                    {
+                      "id":  "19e0ecb7-5062-4c24-9a68-b00d9b82c3fb",
+                      "name": "First Name",
+                      "email": "first@mail.com",
+                      "admin": false,
+                      "created_at": "2021-09-12T00:00:00.000Z",
+                        "updated_at": "2021-09-12T00:00:00.000Z"
+                    },
+                    {
+                      "id": "2e8acfb6-50ad-41a6-94d8-2fa8c3a5749e",
+                      "name": "Second Name",
+                      "email": "second@mail.com",
+                      "admin": true,
+                      "created_at": "2021-09-12T00:00:00.000Z",
+                    "updated_at": "2021-09-12T00:00:00.000Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Admin User not found"
+          }
+        }
+      }      
+    },
+    "/users/:user_id": {
+      "get": {
+        "tags": ["Users"],
+        "sumary": "Profile user",
+        "description": "Get a user profile",
+        "parameters": [          
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }          
+        ],        
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean"
+                      }
+                    }
+                  },
+                  "example": {
+                    "id":  "fea47b73-a1fc-4068-a5b7-bc31f8ee5d1f",
+                    "name": "User Profile name",
+                    "email": "profile@mail.com",
+                    "admin": false,
+                    "created_at": "2021-09-12T00:00:00.000Z",
+                    "updated_at": "2021-09-12T00:00:00.000Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/users/:user_id/admin": {
+      "patch": {
+        "tags": ["Users"],
+        "sumary": "Turn user admin",
+        "description": "Turn user into profile admin",
+        "parameters": [          
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }          
+        ],        
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean"
+                      }
+                    }
+                  },
+                  "example": {
+                    "id":  "12a8d72c-8136-4488-9c79-85be7bbe931e",
+                    "name": "A Name",
+                    "email": "email@gmail.com",
+                    "admin": false,
+                    "created_at": "2021-09-12T00:00:00.000Z",
+                    "updated_at": "2021-09-12T00:00:00.000Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User not found"
+          }
+        }
+      }
+    }
+  }
+}
